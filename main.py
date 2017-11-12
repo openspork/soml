@@ -1,11 +1,11 @@
 from app import app, db
-from models import Meme
+from models import Meme, Shits
 import atexit
 
 def init_db():
     print('connecting to db')
     db.connect()
-    db.create_tables([Meme], safe = True)
+    db.create_tables([Meme, Shits], safe = True)
 
 def term_db():
     print('closing db')

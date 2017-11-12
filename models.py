@@ -7,9 +7,16 @@ class BaseModel(Model):
 
 class Meme(BaseModel):
     uuid = UUIDField()
-    title = CharField()
+    name = CharField()
     creator = CharField()
-    pic = CharField()
+    date = DateTimeField() 
     score = IntegerField()
 
-
+class Shits(BaseModel):
+    uuid = UUIDField()
+    name = CharField()
+    creator = CharField()
+    date = DateTimeField()
+    score = IntegerField()
+    
+    
