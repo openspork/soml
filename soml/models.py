@@ -12,7 +12,7 @@ class Meme(BaseModel):
     date = DateTimeField() 
     score = IntegerField()
 
-class Shits(BaseModel):
+class Shit(BaseModel):
     uuid = UUIDField()
     name = CharField()
     creator = CharField()

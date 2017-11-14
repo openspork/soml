@@ -13,7 +13,7 @@ db = PostgresqlDatabase(
     host = 'localhost'
     )
 
-import soml.models
+from models import *
 
 db.connect()
 print 'init db'
@@ -26,6 +26,6 @@ def _db_connect():
 
 @app.teardown_request
 def _db_close(exc):
-    if not database.is_closed():
+    if not db.is_closed():
         db.close()
 
