@@ -1,5 +1,5 @@
 from peewee import *
-from app import db
+from soml import db
 
 class BaseModel(Model):
     class Meta:
@@ -18,5 +18,3 @@ class Shits(BaseModel):
     creator = CharField()
     date = DateTimeField()
     score = IntegerField()
-    
-    
