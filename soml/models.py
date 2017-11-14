@@ -1,5 +1,5 @@
 from peewee import *
-from soml import db
+from app import db
 
 class BaseModel(Model):
     class Meta:

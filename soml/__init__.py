@@ -1,17 +1,6 @@
 from flask import Flask
-from peewee import PostgresqlDatabase
-import psycopg2
-
-app = Flask(__name__)
-
-import soml.views
-
-db = PostgresqlDatabase(
-    database = 'soml',
-    user = 'christian',
-    password = 'flower',
-    host = 'localhost'
-    )
+from app import app
+from views import *
 
 from models import *
 
@@ -29,3 +18,6 @@ def _db_close(exc):
     if not db.is_closed():
         db.close()
 
+#blueprints demo
+from routes.routes import mod
+app.register_blueprint(mod)
