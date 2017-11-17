@@ -1,7 +1,7 @@
 from flask import Flask
+
 from app import app
 from views import *
-
 from models import *
 
 db.connect()
