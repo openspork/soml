@@ -3,6 +3,8 @@ from peewee import PostgresqlDatabase
 import psycopg2
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 
+#from models import User
+
 #app settings
 app = Flask(__name__)
 app.config.update(
@@ -10,7 +12,6 @@ app.config.update(
 	UPLOADED_SHITPICS_DEST = 'soml/static/images/shitpics/',
 	UPLOADED_SHITPICS_URL = 'images/'
 	)
-
 
 #db settings
 db = PostgresqlDatabase(

@@ -1,4 +1,6 @@
 from peewee import *
+from flask_login import UserMixin
+
 from app import db
 
 class BaseModel(Model):
@@ -10,11 +12,14 @@ class Meme(BaseModel):
     name = CharField()
     creator = CharField()
     date = DateTimeField() 
-    score = IntegerField()
+    score = IntegerField(default = 0)
 
-class Shit(BaseModel):
+class ShitPic(BaseModel):
     uuid = UUIDField()
     name = CharField()
     creator = CharField()
     date = DateTimeField()
-    score = IntegerField()
+    score = IntegerField(default = 0)
+
+class User(UserMixin, BaseModel):
+    username = CharField(unique=True)
