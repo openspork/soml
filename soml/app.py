@@ -3,7 +3,6 @@ from peewee import PostgresqlDatabase
 import psycopg2
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 
-#from models import User
 
 #app settings
 app = Flask(__name__)
@@ -24,3 +23,7 @@ db = PostgresqlDatabase(
 #upload settings
 shitpics = UploadSet('shitpics', IMAGES)
 configure_uploads(app, shitpics)
+
+
+
+

@@ -1,21 +1,19 @@
 from flask import render_template, send_from_directory
-from app import app
 
+from flask_login import LoginManager, login_manager, login_user, logout_user, login_required, current_user
+
+from soml.app import app
 from soml.models import User
-
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 
 #login settings
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def load_user(user_id):
 	return User.get(User.id == int(user_id))
-
-
-
 
 
 @app.route('/')
