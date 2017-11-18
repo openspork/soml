@@ -9,7 +9,10 @@
 </head>
 
 <body>
-    Welcome
+	<h1>Welcome to my poopy thing!</h1>
+ 	{% if current_user.is_authenticated %}
+	Hi {{ current_user.username }}!
+	{% endif %}
 </body>
 
 </html>

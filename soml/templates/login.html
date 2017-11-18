@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Shit On My Life</title>
+    <meta name="description" content="Shit all over it">
+    <meta name="author" content="christian">
+</head>
+
+<body>
+	<h1>Log in!</h1>
+    <form method="POST" enctype="multipart/form-data">
+     
+        <br> {{ form.csrf_token }} {{ form.username.label }} {{ form.username }}
+        <br> {{ form.password.label }} {{ form.password }}
+        <input type="submit" value="Login">
+    </form>
+</body>
+
+</html>

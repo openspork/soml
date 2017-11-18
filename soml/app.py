@@ -24,6 +24,3 @@ db = PostgresqlDatabase(
 shitpics = UploadSet('shitpics', IMAGES)
 configure_uploads(app, shitpics)
 
-
-
-

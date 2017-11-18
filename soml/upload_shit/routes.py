@@ -17,8 +17,9 @@ from flask_login import login_required
 
 mod = Blueprint('upload_shit', __name__, template_folder='templates')
 
-@login_required
+
 @mod.route('/upload_shit', methods = ['GET', 'POST'])
+@login_required
 def upload_shit():
 	form = ImageForm()
 	if form.validate_on_submit():
