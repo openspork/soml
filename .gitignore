@@ -2,3 +2,5 @@
 *.pyc
 venv_activate
 *.egg-info
+*.png
+*.jpg
