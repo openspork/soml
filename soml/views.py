@@ -1,6 +1,5 @@
 from flask import redirect, request, render_template, url_for, send_from_directory
 
-from flask_login import LoginManager, login_manager, login_user, logout_user, login_required, current_user
 
 from soml.app import app
 from soml.models import User
@@ -8,16 +7,8 @@ from soml.forms import RegisterForm, LoginForm
 from soml.utils import get_redirect_target
 
 
-
-#login settings
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_message = 'pls log in'
-login_manager.login_view = 'login'
-
-@login_manager.user_loader
-def load_user(user_id):
-	return User.get(User.id == int(user_id))
+from flask_login import login_user, logout_user, login_required, current_user
+from soml.login_controller import login_manager
 
 
 @app.route('/')
@@ -42,11 +33,6 @@ def login():
 
 	return render_template('login.html', form = form, username = username)
 
-
-
-
-
-
 @app.route('/images/<path:path>')
 def send_static(path):
     return send_from_directory('static/images/shitpics', path)
@@ -55,7 +41,7 @@ def send_static(path):
 @app.route('/home')
 @login_required
 def home():
-	return 'you are ' + current_user.username
+	return 'you are ' + current_user.username + ' <a href="/logout">logout</a>'
 
 
 @app.route('/logout')
