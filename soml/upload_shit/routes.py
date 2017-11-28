@@ -13,18 +13,18 @@ from soml.forms import ImageForm
 #custom db
 from soml.models import ShitPic
 
-from flask_login import login_required
+#login
+from flask_login import login_required, current_user
 
 mod = Blueprint('upload_shit', __name__, template_folder='templates')
-
 
 @mod.route('/upload_shit', methods = ['GET', 'POST'])
 @login_required
 def upload_shit():
 	form = ImageForm()
 	if form.validate_on_submit():
-		filename = shitpics.save(form.image.data, None, 'test' + secure_filename(form.image.data.filename))
-		ShitPic.create(uuid = uuid4(), name = form.name.data, creator = form.creator.data, date = datetime.now())
+		filename = shitpics.save(form.image.data, None, 'shitpic_' + secure_filename(form.image.data.filename))
+		ShitPic.create(uuid = uuid4(), filename = filename, name = form.name.data, creator = current_user.username, date = datetime.now())
 		return redirect(url_for('index'))
 	return render_template('upload_shit.html', form = form )
 

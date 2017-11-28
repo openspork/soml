@@ -18,8 +18,9 @@ def _db_close(exc):
     if not db.is_closed():
         db.close()
 
-
-#blueprints demo
+#blueprints
 from upload_shit.routes import mod
 app.register_blueprint(mod)
- 
+
+from login.routes import login_mod
+app.register_blueprint(login_mod)

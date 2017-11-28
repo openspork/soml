@@ -3,7 +3,6 @@ from peewee import PostgresqlDatabase
 import psycopg2
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 
-
 #app settings
 app = Flask(__name__)
 app.config.update(

@@ -16,6 +16,7 @@ class Meme(BaseModel):
 
 class ShitPic(BaseModel):
     uuid = UUIDField()
+    filename = CharField()
     name = CharField()
     creator = CharField()
     date = DateTimeField()
@@ -23,3 +24,4 @@ class ShitPic(BaseModel):
 
 class User(UserMixin, BaseModel):
     username = CharField(unique=True)
+    password = CharField()

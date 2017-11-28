@@ -9,13 +9,16 @@
 </head>
 
 <body>
-	<h1>Log in!</h1>
+	<h1>Log in or sign up!</h1>
+    {{ alert }}
     <form method="POST" enctype="multipart/form-data">
-     
         <br> {{ form.csrf_token }} {{ form.username.label }} {{ form.username }}
         <br> {{ form.password.label }} {{ form.password }}
-        <input type="submit" value="Login">
+        <br> new user? {{ form.new_user }}
+        <input type="submit" value="Go!">
     </form>
+    <br>
+    Passwords are saved in plain text :)
 </body>
 
 </html>
