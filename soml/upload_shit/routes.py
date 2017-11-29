@@ -16,6 +16,9 @@ from soml.models import ShitPic
 #login
 from flask_login import login_required, current_user
 
+#pics
+from soml.utils import thumbify
+
 upload_shit_mod = Blueprint('upload_shit_mod', __name__, template_folder='templates')
 
 @upload_shit_mod.route('/upload_shit', methods = ['GET', 'POST'])
@@ -23,7 +26,9 @@ upload_shit_mod = Blueprint('upload_shit_mod', __name__, template_folder='templa
 def upload_shit():
 	form = ImageForm()
 	if form.validate_on_submit():
-		filename = shitpics.save(form.image.data, None, 'shitpic_' + secure_filename(form.image.data.filename))
+		image = thumbify(form.image.data)
+		filename = shitpics.save(image, None, 'shitpic_' + secure_filename(form.image.data.filename))
+		#filename = shitpics.save(form.image.data, None, 'shitpic_' + secure_filename(form.image.data.filename))
 		ShitPic.create(uuid = uuid4(), filename = filename, name = form.name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) ) 
 		return redirect(url_for('index'))
 	return render_template('upload_shit.html', form = form )
