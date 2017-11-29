@@ -13,4 +13,10 @@ def get_redirect_target():
 	    if is_safe_url(target):
 	        return target
 
-	        
+#image processing
+from PIL import Image
+
+def thumbify(image):
+	size = 128, 128
+	image.thumbnail(size)
+	return image

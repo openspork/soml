@@ -7,24 +7,25 @@
 {% block content %}
 
     <h1>welcome to shit on my . life</h1>
- 	{% if current_user.is_authenticated %}
-	<h2> Hi {{ current_user.username }}! </h2>
-	{% endif %}
-	<br>
 
-	Popular shitpics:
-	<br>
-	<br>
+	<h3>Popular shitpics:</h3>
+
+<ul>
     {% for shitpic in shitpics %}
-    	<b>Score: {{ shitpic.score }} </b>
-        <img src="/images/{{ shitpic.filename }}" style="width:150px;" >
-        <br>
-        <a href="/shitpic/up/{{ shitpic.uuid }}">vote up!</a>
-        <br>
+    <li>
+    	<b>{{ shitpic.name }}  </b>
+    	<br>
+    	<i>Submitted by {{ shitpic.user.username }}</i>
+    	<br>
+    	Score: {{ shitpic.score }}
+    	<br>
+        <img src="/images/{{ shitpic.filename }}" style="width:80px;" >
+        <a href="/shitpic/up/{{ shitpic.uuid }}">vote up!</a> 
+        -
         <a href="/shitpic/down/{{ shitpic.uuid }}">vote down!</a>
-        <br>
-        <br>
+    </li>
     {% endfor %}
+</ul>
 
 <br>
 <br>
