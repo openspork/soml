@@ -1,18 +1,32 @@
-<!doctype html>
-<html lang="en">
+{% extends "base.html" %}
+{% block title %}index{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Shit On My Life</title>
-    <meta name="description" content="Shit all over it">
-    <meta name="author" content="christian">
-</head>
+{% block content %}
 
-<body>
-	<h1>Welcome to my poopy thing!</h1>
+    <h1>welcome to shit on my . life</h1>
  	{% if current_user.is_authenticated %}
-	Hi {{ current_user.username }}!
+	<h2> Hi {{ current_user.username }}! </h2>
 	{% endif %}
-</body>
+	<br>
 
-</html>
+	Popular shitpics:
+	<br>
+	<br>
+    {% for shitpic in shitpics %}
+    	<b>Score: {{ shitpic.score }} </b>
+        <img src="/images/{{ shitpic.filename }}" style="width:150px;" >
+        <br>
+        <a href="/shitpic/up/{{ shitpic.uuid }}">vote up!</a>
+        <br>
+        <a href="/shitpic/down/{{ shitpic.uuid }}">vote down!</a>
+        <br>
+        <br>
+    {% endfor %}
+
+<br>
+<br>
+
+{% endblock %}

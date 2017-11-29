@@ -14,14 +14,14 @@ class Meme(BaseModel):
     date = DateTimeField() 
     score = IntegerField(default = 0)
 
-class ShitPic(BaseModel):
-    uuid = UUIDField()
-    filename = CharField()
-    name = CharField()
-    creator = CharField()
-    date = DateTimeField()
-    score = IntegerField(default = 0)
-
 class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField()
+
+class ShitPic(BaseModel):
+    user = ForeignKeyField(User, related_name='shitpics')
+    uuid = UUIDField()
+    filename = CharField()
+    name = CharField()
+    date = DateTimeField()
+    score = IntegerField(default = 0)
