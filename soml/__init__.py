@@ -6,7 +6,7 @@ from models import *
 
 db.connect()
 print 'init db'
-db.create_tables([Meme,ShitPic,User], safe = True)
+db.create_tables([Meme,ShitPic,User,Token], safe = True)
 db.close()
 
 @app.before_request

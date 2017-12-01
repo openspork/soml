@@ -19,10 +19,10 @@
     	<br>
     	Score: {{ shitpic.score }}
     	<br>
-        <img src="/images/{{ shitpic.filename }}" style="width:80px;" >
-        <a href="/shitpic/up/{{ shitpic.uuid }}">vote up!</a> 
+        <img src="/images/{{ shitpic.filename }}" style="width:128px;" >
+        <a href="/shitpic/up/{{ shitpic.uuid }}/{{ token.uuid }}">vote up!</a> 
         -
-        <a href="/shitpic/down/{{ shitpic.uuid }}">vote down!</a>
+        <a href="/shitpic/down/{{ shitpic.uuid }}/{{ token.uuid }}">vote down!</a>
     </li>
     {% endfor %}
 </ul>

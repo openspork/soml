@@ -3,10 +3,10 @@
 {% block head %}
     {{ super() }}
 {% endblock %}
-{% block content %}
 
+{% block content %}
 	<h2>Log in or sign up!</h2>
-    {{ alert }}
+    
     <form method="POST" enctype="multipart/form-data">
         <br> {{ form.csrf_token }} {{ form.username.label }} {{ form.username }}
         <br> {{ form.password.label }} {{ form.password }}

@@ -16,7 +16,6 @@ def get_redirect_target():
 #image processing
 from PIL import Image
 from StringIO import StringIO
-from werkzeug.datastructures import FileStorage
 
 def thumbify(in_image):
 	in_image.seek(0)
@@ -24,7 +23,6 @@ def thumbify(in_image):
 	size = 128, 128
 	image.thumbnail(size)
 	out_image = StringIO()
-	image.save(out_image, 'JPEG', quality=70)
+	image.save(out_image, 'JPEG', quality=90)
 	out_image.seek(0)
-	werkzeug_data = FileStorage(out_image)
-	return werkzeug_data
+	return out_image
