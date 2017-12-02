@@ -4,11 +4,25 @@ from wtforms.validators import InputRequired
 from flask_wtf.file import FileField, FileRequired
 
 class LoginForm(FlaskForm):
-	username = StringField('username', validators=[InputRequired()])
-	password = PasswordField('password', validators=[InputRequired()])
+	username = StringField('username', validators=[InputRequired(message = 'Username missing!')])
+	password = PasswordField('password', validators=[InputRequired(message = 'Password missing!')])
 	new_user = BooleanField('new_user')
 
-
 class ImageForm(FlaskForm):
-    image = FileField(validators=[FileRequired()])
-    name = StringField()
+
+    image_url = StringField('image_url')
+    image_upload = FileField('image_upload')
+    image_name = StringField('image_name', validators=[InputRequired(message = 'Image name missing!')])
+
+    def validate(self):
+        if not FlaskForm.validate(self):
+        	return False
+        if bool(self.image_url.data) ^ bool(self.image_upload.data):
+        	return True
+        elif bool(self.image_url.data) and bool(self.image_upload.data):
+        	self.image_url.errors.append('Please only populate one upload method')
+        	self.image_upload.errors.append('Please only populate one upload method')
+        	return False
+        elif not bool(self.image_url.data) and not bool(self.image_upload.data):
+         	self.image_url.errors.append('Please populate an upload method')
+        	self.image_upload.errors.append('Please populate an upload method')

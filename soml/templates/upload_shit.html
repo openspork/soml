@@ -8,11 +8,16 @@
 {% block content %}
 	<form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_shit_mod.upload_shit') }}" >
 	    {{ form.csrf_token }}
-	    {{ form.image.label }}
-	    {{ form.image }}
+	    {{ form.image_upload.label }}
+	    {{ form.image_upload }}
+	    <b>OR</b>
+	    {{ form.image_url.label }}
+	    {{ form.image_url }}
 	    <br>
-	    {{ form.name.label }}
-	    {{ form.name }}
+	    <br>
+	    {{ form.image_name.label }}
+	    {{ form.image_name }}
+	    <br>
 	    <input type="submit" value="Upload">
 	</form>
 
