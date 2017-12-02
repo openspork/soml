@@ -9,6 +9,13 @@ Your shits:
 
     {% for shitpic in current_user.shitpics %}
         <img src="/images/{{ shitpic.filename }}">
+        {{ form.delete.label }} {{ form.delete }}
     {% endfor %}
+
+        <form method="POST" enctype="multipart/form-data" >
+
+        <input type="submit" value="Go!">
+
+    </form>
     
 {% endblock %}

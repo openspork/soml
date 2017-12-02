@@ -17,6 +17,9 @@ app.register_blueprint(upload_shit_mod)
 from login.routes import login_mod
 app.register_blueprint(login_mod)
 
+from profile.routes import profile_mod
+app.register_blueprint(profile_mod)
+
 @app.route('/')
 def index(alert = None):
 	shitpics = ShitPic.select().order_by(ShitPic.score.desc())
@@ -28,8 +31,6 @@ def index(alert = None):
 @app.route('/shitpic/<op>/<shitpic_uuid>/<token_uuid>')
 @login_required
 def shitpic_vote(op,shitpic_uuid,token_uuid):
-	#check if the token is valid
-
 	sq = Token.select().where(Token.uuid == token_uuid)
 	if sq.exists():
 		token = Token.get(Token.uuid == token_uuid)
@@ -46,13 +47,6 @@ def shitpic_vote(op,shitpic_uuid,token_uuid):
 	else:
 		alert = 'bad token!'
 		return index(alert)
-
-
-@app.route('/profile')
-@login_required
-def profile():
-	return render_template('profile.html', current_user = current_user)
-
 
 @app.route('/images/<path:path>')
 def send_static(path):

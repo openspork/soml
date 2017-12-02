@@ -8,6 +8,19 @@ class LoginForm(FlaskForm):
 	password = PasswordField('password', validators=[InputRequired(message = 'Password missing!')])
 	new_user = BooleanField('new_user')
 
+
+class ProfileForm(FlaskForm):
+	delete = BooleanField('delete_image')
+
+
+
+
+
+
+
+
+
+
 class ImageForm(FlaskForm):
 
     image_url = StringField('image_url')
@@ -20,9 +33,9 @@ class ImageForm(FlaskForm):
         if bool(self.image_url.data) ^ bool(self.image_upload.data):
         	return True
         elif bool(self.image_url.data) and bool(self.image_upload.data):
-        	self.image_url.errors.append('Please only populate one upload method')
-        	self.image_upload.errors.append('Please only populate one upload method')
+        	self.image_url.errors.append('Local image upload field is also populated!')
+        	self.image_upload.errors.append('URL image download field is also populated!')
         	return False
         elif not bool(self.image_url.data) and not bool(self.image_upload.data):
-         	self.image_url.errors.append('Please populate an upload method')
-        	self.image_upload.errors.append('Please populate an upload method')
+         	self.image_url.errors.append('Please populate an upload method!')
+        	self.image_upload.errors.append('Please populate an upload method!')

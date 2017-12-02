@@ -10,6 +10,9 @@ login_mod = Blueprint('login_mod', __name__, template_folder='templates')
 
 @login_mod.route('/login', methods = ['GET', 'POST'])
 def login():
+	if current_user.is_authenticated:
+		return redirect(url_for('index'))
+
 	form = LoginForm()
 	if form.validate_on_submit():
 		if not form.new_user.data:
