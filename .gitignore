@@ -4,3 +4,4 @@ venv_activate
 *.egg-info
 *.png
 *.jpg
+soml/static/images/
