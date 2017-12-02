@@ -1,49 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% block head %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{% block title %}{% endblock %} - shit on my life</title>
     {% endblock %}
 </head>
+
 <body>
     <div id="navigation">
-        {% if current_user.is_authenticated %}
-        Hi {{ current_user.username }}!
-        <br>
-        {% endif %}
-
-        <a href="{{ url_for('index') }}">index</a>
-        -
-        <a href="{{ url_for('profile') }}">profile</a>
-        -
-        <a href="{{ url_for('upload_shit_mod.upload_shit') }}">upload shit</a>
-        -
-        {% if current_user.is_authenticated %}
-        <a href="{{ url_for('login_mod.logout') }}?next=%2F{{ request.url_rule }}">log out</a>
-        {% else %}
-        <a href="{{ url_for('login_mod.login') }}?next=%2F{{ request.url_rule }}">log in / sign up</a>
-        {% endif %}
-        
+        {% if current_user.is_authenticated %} Hi {{ current_user.username }}!
+        <br> {% endif %}
+        <a href="{{ url_for('index') }}">index</a> -
+        <a href="{{ url_for('profile') }}">profile</a> -
+        <a href="{{ url_for('upload_shit_mod.upload_shit') }}">upload shit</a> - {% if current_user.is_authenticated %}
+        <a href="{{ url_for('login_mod.logout') }}?next=%2F{{ request.url_rule }}">log out</a> {% else %}
+        <a href="{{ url_for('login_mod.login') }}?next=%2F{{ request.url_rule }}">log in / sign up</a> {% endif %}
     </div>
     <br>
     <br>
     <div id="alert" style="color:red">
-    {% block alert %}
-
-    {% if alert %}
-        {{ alert }}
-    {% endif %}
-
-
-    {% endblock %}</div>
+        {% block alert %} {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %} {% endblock %}</div>
     <div id="content">{% block content %}{% endblock %}</div>
     <br>
     <br>
     <div id="footer">
-        {% block footer %}
-        &copy; <a href="http://shitonmy.life">shit on my . life</a>
-        {% endblock %}
+        {% block footer %} &copy; <a href="http://shitonmy.life">shit on my . life</a> {% endblock %}
     </div>
 </body>
+
 </html>

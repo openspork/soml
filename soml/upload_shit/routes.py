@@ -8,7 +8,7 @@ from io import BytesIO
 import requests
 
 #flask + utils
-from flask import Blueprint, redirect, render_template, send_from_directory, url_for
+from flask import Blueprint, flash, redirect, render_template, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 
 #custom flask
@@ -64,12 +64,15 @@ def upload_shit():
 				else:
 					raise Exception(url_valid[1])
 		except Exception, e:
-			return render_template('upload_shit.html', form = form, alert = str(e))
+			flash (str(e))
 	else:
-		alert = form.errors
-		return render_template('upload_shit.html', form = form, alert = alert)
+		for field, errors in form.errors.items():
+			for error in errors:
+				flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error))
 
-	return render_template('upload_shit.html', form = form, alert = None)
+		return render_template('upload_shit.html', form = form)
+
+	return render_template('upload_shit.html', form = form)
 
 
 

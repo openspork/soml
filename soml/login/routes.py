@@ -1,7 +1,5 @@
 
-from flask import Blueprint, redirect, render_template, url_for
-
-
+from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from soml.login_controller import login_manager
 from soml.models import User
@@ -12,7 +10,6 @@ login_mod = Blueprint('login_mod', __name__, template_folder='templates')
 
 @login_mod.route('/login', methods = ['GET', 'POST'])
 def login():
-
 	form = LoginForm()
 	if form.validate_on_submit():
 		if not form.new_user.data:
@@ -22,14 +19,20 @@ def login():
 				login_user(user)
 				return redirect(get_redirect_target())
 			else:
-				return render_template('login.html', form = form, alert = 'bad user data!')
+				flash('bad login!')
 		else:
 			User.create(username = form.username.data, password = form.password.data)
 			user = User.get(User.username == form.username.data)
 			login_user(user)
 			return redirect(get_redirect_target())
+	else:
+		for field, errors in form.errors.items():
+			for error in errors:
+				flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error))
 
-	return render_template('login.html', form = form, alert = 'complete login form!')
+	return render_template('login.html', form = form)
+
+
 
 @login_mod.route('/logout')
 @login_required
