@@ -6,15 +6,24 @@
 {% block content %}
 
 Your shits:
+<br>
+<br>
+
 
     {% for shitpic in current_user.shitpics %}
-        <img src="/images/{{ shitpic.filename }}">
-        {{ form.delete.label }} {{ form.delete }}
+            <img src="/images/{{ shitpic.filename }}">
+            {{ form.delete.label }} {{ form.delete }}
     {% endfor %}
 
-        <form method="POST" enctype="multipart/form-data" >
+        {{ form.csrf_token }}
 
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('profile_mod.delete_shitpics') }}">
         <input type="submit" value="Go!">
+
+
+
+
+
 
     </form>
     
