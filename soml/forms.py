@@ -9,7 +9,6 @@ class LoginForm(FlaskForm):
 	password = PasswordField('password', validators=[InputRequired(message = 'Password missing!')])
 	new_user = BooleanField('new_user')
 
-
 class ProfileForm(FlaskForm):
 	delete = BooleanField('delete_image')
 

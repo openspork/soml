@@ -9,6 +9,8 @@ print 'init db'
 db.create_tables([Meme,ShitPic,User,Token], safe = True)
 db.close()
 
+
+
 @app.before_request
 def _db_connect():
     db.connect()
