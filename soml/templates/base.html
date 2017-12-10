@@ -10,8 +10,8 @@
 
 <body>
     <div id="navigation">
-        {% if current_user.is_authenticated %} Hi {{ current_user.username }}!
-        <br> {% endif %}
+        {% if current_user.is_authenticated %} Hi {{ current_user.username }}!{% endif %}
+        <br> 
         <a href="{{ url_for('index_mod.index') }}">index</a> -
         <a href="{{ url_for('profile_mod.profile') }}">profile</a> -
         <a href="{{ url_for('upload_shit_mod.upload_shit') }}">upload shit</a> - {% if current_user.is_authenticated %}

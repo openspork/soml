@@ -3,6 +3,7 @@ from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, StopValidation, URL
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_uploads import IMAGES
+from soml.utils import validate_image_url
 
 class LoginForm(FlaskForm):
 	username = StringField('username', validators=[InputRequired(message = 'Username missing!')])
@@ -17,8 +18,11 @@ class ImageUrlField(StringField):
     def pre_validate(self, form):
 
         if form.image_url.data and not form.image_upload.data:
-            url_validator = URL(message = 'BAD URL')
+            url_validator = URL(message = 'MALFORMED URL')
             url_validator(form, form.image_url)
+
+            validate_image_url(form.image_url.data)
+
         elif form.image_upload.data and not form.image_url.data:
             file_validator = FileRequired(message = 'NO FILE')
             file_validator(form, form.image_upload)

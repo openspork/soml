@@ -28,11 +28,9 @@ def thumbify(in_image):
     return out_image, image.format
 
 #image downloading
-
 import requests
-
+from wtforms.validators import StopValidation
 def validate_image_url(url):
-
     try:
         h = requests.head(url, allow_redirects=True)
         header = h.headers
@@ -40,11 +38,12 @@ def validate_image_url(url):
         content_length = header.get('content-length')
 
         if 'image' not in content_type.lower():
-            return False, 'Not an image!'
+            raise Exception('Provided URL not an image!')
+            #return False, 'Not an image!'
 
         if content_length and int(content_length) > 99999999999999999:
-            return False, 'Image too large!'
+            raise Exception('Provided image too large!')
+            #return False, 'Image too large!'
     except Exception, e:
-        return False, 'Error fetching image!'
+        raise StopValidation('Error fetching image!')
 
-    return True, 'URL Valid'

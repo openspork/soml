@@ -22,7 +22,7 @@ from soml.models import ShitPic
 from flask_login import login_required, current_user
 
 #pics
-from soml.utils import thumbify, validate_image_url
+from soml.utils import thumbify
 
 upload_shit_mod = Blueprint('upload_shit_mod', __name__, template_folder='templates')
 
@@ -39,30 +39,31 @@ def upload_shit():
 				ShitPic.create(uuid = uuid4(), filename = filename, name = form.image_name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) )
 				return redirect(url_for('index'))
 			elif form.image_url.data:
-				url_valid = validate_image_url(form.image_url.data)
-				if url_valid[0]:
-					response = requests.get(form.image_url.data, allow_redirects=True)
-					content_disposition = response.headers.get('content-disposition')
+				#url_valid = validate_image_url(form.image_url.data)
+				#if url_valid[0]:
+				response = requests.get(form.image_url.data, allow_redirects=True)
+				content_disposition = response.headers.get('content-disposition')
 
-					thumb_tuple = thumbify(BytesIO(response.content))
-					thumb = thumb_tuple[0]
-					img_format = thumb_tuple[1]
+				thumb_tuple = thumbify(BytesIO(response.content))
+				thumb = thumb_tuple[0]
+				img_format = thumb_tuple[1]
 
-					if content_disposition:
-						image_name = content_disposition
-					else:
-						image_name = form.image_url.data.rsplit('/', 1)[1] + '.' + img_format
-
-					filename = 'shitpic_' + secure_filename(image_name)
-
-					with open(app.config['UPLOADED_SHITPICS_DEST'] + '/' + filename, 'wb') as out_file:
-						shutil.copyfileobj(thumb, out_file)
-					del response
-
-					ShitPic.create(uuid = uuid4(), filename = filename, name = form.image_name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) )
-					return redirect(url_for('index'))
+				if content_disposition:
+					image_name = content_disposition
 				else:
-					raise Exception(url_valid[1])
+					image_name = form.image_url.data.rsplit('/', 1)[1] + '.' + img_format
+
+				filename = 'shitpic_' + secure_filename(image_name)
+
+				with open(app.config['UPLOADED_SHITPICS_DEST'] + '/' + filename, 'wb') as out_file:
+					shutil.copyfileobj(thumb, out_file)
+				del response
+
+				ShitPic.create(uuid = uuid4(), filename = filename, name = form.image_name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) )
+				return redirect(url_for('index'))
+
+				# else:
+				# 	raise Exception(url_valid[1])
 		except Exception, e:
 			flash (str(e))
 	else:
