@@ -2,14 +2,11 @@ from flask import Flask
 from peewee import PostgresqlDatabase
 import psycopg2
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+from config import Config
 
 #app settings
 app = Flask(__name__)
-app.config.update(
-	SECRET_KEY = 'secret',
-	UPLOADED_SHITPICS_DEST = 'soml/static/images/shitpics/',
-	UPLOADED_SHITPICS_URL = 'images/'
-	)
+app.config.from_object(Config)
 
 #db settings
 db = PostgresqlDatabase(
