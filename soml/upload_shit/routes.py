@@ -3,24 +3,18 @@ from datetime import datetime
 from uuid import uuid4
 import shutil
 from io import BytesIO
-
 #HTTP requests
 import requests
-
 #flask + utils
 from flask import Blueprint, flash, redirect, render_template, send_from_directory, url_for
 from werkzeug.utils import secure_filename
-
 #custom flask
 from soml.app import app, shitpics
-from soml.forms import ImageForm
-
+from soml.forms import ImageUploadForm
 #custom db
 from soml.models import ShitPic
-
 #login
 from flask_login import login_required, current_user
-
 #pics
 from soml.utils import thumbify
 
@@ -29,7 +23,7 @@ upload_shit_mod = Blueprint('upload_shit_mod', __name__, template_folder='templa
 @upload_shit_mod.route('/upload_shit', methods = ['GET', 'POST'])
 @login_required
 def upload_shit():
-	form = ImageForm()
+	form = ImageUploadForm()
 	form.validate_on_submit()
 	if form.validate_on_submit():
 		try:
