@@ -22,7 +22,6 @@ app.register_blueprint(profile_mod)
 from index.routes import index_mod
 app.register_blueprint(index_mod)
 
-
 @app.route('/shitpic/get/<uuid>')
 def shitpic_get(uuid):
 	filename = ShitPic.get(ShitPic.uuid == uuid).filename
@@ -30,8 +29,7 @@ def shitpic_get(uuid):
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 

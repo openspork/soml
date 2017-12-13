@@ -21,7 +21,6 @@ def profile():
 	else:
 		for field, errors in form.errors.items():
 			for error in errors:
-				print error
 				flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error))
 
 	return render_template('profile.html', form = form)
