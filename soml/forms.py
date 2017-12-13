@@ -1,11 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import Field, BooleanField, StringField, PasswordField, SelectFieldBase, SelectField, SelectMultipleField, widgets
+from wtforms import Field, BooleanField, StringField, PasswordField, SelectField, SelectMultipleField, SubmitField, widgets
 from wtforms.compat import text_type
 from wtforms.validators import InputRequired, StopValidation, URL
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_uploads import IMAGES
 from flask_login import current_user
 from soml.utils import validate_image_url
+
+class VoteForm(FlaskForm):
+    upvote = SubmitField('vote up')
+    downvote = SubmitField('vote down')
+
+
+
 
 # handles login
 class LoginForm(FlaskForm):
@@ -50,7 +57,7 @@ class ProfileForm(FlaskForm):
 
 # ensures upload or url download fields are exclusively populated
 def validate_upload_fields(self, form):
-    if bool(form.image_url.data) and bool(form.image_upload.data):
+    if form.image_url.data and form.image_upload.data:
         raise StopValidation('Both URL and upload populated!')
     elif not form.image_url.data and not form.image_upload.data:
         raise StopValidation('Populate either URL or file upload!')
@@ -67,10 +74,10 @@ class ImageUrlField(StringField):
             url_validator(form, self)
             validate_image_url(form.image_url.data)
 
-#field for image upload
-#checks url download not also populated
-#checks file is present
-#checks file extension is valid
+# field for image upload
+# checks url download not also populated
+# checks file is present
+# checks file extension is valid
 class ImageFileField(FileField):
     def pre_validate(self, form,):
         validate_upload_fields(self, form)
@@ -80,7 +87,7 @@ class ImageFileField(FileField):
             file_ext_validator = FileAllowed(upload_set = IMAGES, message = 'File extension is incorrect!')
             file_ext_validator(form, self)
 
-#form for image upload
+# form for image upload
 class ImageUploadForm(FlaskForm):
     image_url = ImageUrlField('image_url', validators = [])
     image_upload = ImageFileField('image_upload', validators = [])
