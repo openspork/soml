@@ -3,8 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from soml.login_controller import login_manager
 from soml.app import app
-
-#from soml.models import *
+from soml.models import ShitPic
 
 import os
 
@@ -23,9 +22,11 @@ app.register_blueprint(profile_mod)
 from index.routes import index_mod
 app.register_blueprint(index_mod)
 
-@app.route('/images/<path:path>')
-def send_static(path):
-    return send_from_directory('static/images/shitpics', path)
+
+@app.route('/shitpic/get/<uuid>')
+def shitpic_get(uuid):
+	filename = ShitPic.get(ShitPic.uuid == uuid).filename
+	return send_from_directory('static/images/shitpics', filename)
 
 @app.route('/favicon.ico')
 def favicon():

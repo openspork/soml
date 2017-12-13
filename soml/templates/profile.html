@@ -8,23 +8,11 @@
 Your shits:
 <br>
 <br>
+	{{ form.csrf_token }}
+	<form method="POST" enctype="multipart/form-data" action="{{ url_for('profile_mod.profile') }}">
+	{{ form.csrf_token }}
+	{{ form.delete.label }} {{ form.delete }}
+	<input type="submit" value="Delete!">
+	</form>
 
-
-    {% for shitpic in current_user.shitpics %}
-            <img src="/images/{{ shitpic.filename }}">
-            {{ form.delete.label }} {{ form.delete }}
-    {% endfor %}
-
-        {{ form.csrf_token }}
-
-        <form method="POST" enctype="multipart/form-data" action="{{ url_for('profile_mod.delete_shitpics') }}">
-        <input type="submit" value="Go!">
-
-
-
-
-
-
-    </form>
-    
 {% endblock %}

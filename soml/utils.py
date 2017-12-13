@@ -39,11 +39,10 @@ def validate_image_url(url):
 
         if 'image' not in content_type.lower():
             raise Exception('Provided URL not an image!')
-            #return False, 'Not an image!'
 
         if content_length and int(content_length) > 99999999999999999:
             raise Exception('Provided image too large!')
-            #return False, 'Image too large!'
+
     except Exception, e:
-        raise StopValidation('Error fetching image!')
+        raise ValueError('Error fetching image!')
 

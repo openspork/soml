@@ -8,15 +8,26 @@
 {% block content %}
 	<form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_shit_mod.upload_shit') }}" >
 	    {{ form.csrf_token }}
-
 	    {{ form.image_name.label }}
 	    {{ form.image_name }}
-	    
+	    {% for error in form.image_name.errors %}
+	    <span style="color: red;">{{ error }}</span>
+	    {% endfor %}
+	    <br>
+	    <br>
 	    {{ form.image_upload.label }}
 	    {{ form.image_upload }}
+	    {% for error in form.image_upload.errors %}
+	    <span style="color: red;">{{ error }}</span>
+	    {% endfor %}
+	    <br>	    
 	    <b>OR</b>
+	    <br>
 	    {{ form.image_url.label }}
 	    {{ form.image_url }}
+	    {% for error in form.image_url.errors %}
+	    <span style="color: red;">{{ error }}</span>
+	    {% endfor %}
 	    <br>
 	    <br>
 

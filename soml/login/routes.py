@@ -28,6 +28,7 @@ def login():
 			user = User.get(User.username == form.username.data)
 			login_user(user)
 			return redirect(get_redirect_target())
+			
 	else:
 		for field, errors in form.errors.items():
 			for error in errors:

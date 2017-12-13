@@ -25,7 +25,7 @@ def shitpic_vote(op,shitpic_uuid,token_uuid):
 		else:
 			shitpic.score -= 1
 		shitpic.save()
-		return redirect(url_for('index'))
+		return redirect(url_for('index_mod.index'))
 	else:
 		flash('bad token!')
 	return index()

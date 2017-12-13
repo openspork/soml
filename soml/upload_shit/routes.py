@@ -37,10 +37,8 @@ def upload_shit():
 				form.image_upload.data.stream = thumbify(form.image_upload.data)[0]
 				filename = shitpics.save(form.image_upload.data, None, 'shitpic_' + secure_filename(form.image_upload.data.filename))
 				ShitPic.create(uuid = uuid4(), filename = filename, name = form.image_name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) )
-				return redirect(url_for('index'))
+				return redirect(url_for('index_mod.index'))
 			elif form.image_url.data:
-				#url_valid = validate_image_url(form.image_url.data)
-				#if url_valid[0]:
 				response = requests.get(form.image_url.data, allow_redirects=True)
 				content_disposition = response.headers.get('content-disposition')
 
@@ -60,16 +58,10 @@ def upload_shit():
 				del response
 
 				ShitPic.create(uuid = uuid4(), filename = filename, name = form.image_name.data, creator = current_user.username, date = datetime.now(), user = int(current_user.get_id()) )
-				return redirect(url_for('index'))
+				return redirect(url_for('index_mod.index'))
 
-				# else:
-				# 	raise Exception(url_valid[1])
 		except Exception, e:
 			flash (str(e))
-	else:
-		for field, errors in form.errors.items():
-			for error in errors:
-				flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error))
 
 		return render_template('upload_shit.html', form = form)
 
