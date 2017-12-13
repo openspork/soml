@@ -4,11 +4,11 @@
     {{ super() }}
 {% endblock %}
 
-
+{% block header %}
+<h1>welcome to shit on my . life</h1>
+{% endblock %}
 
 {% block content %}
-
-    <h1>welcome to shit on my . life</h1>
 
 	<h3>Popular shitpics:</h3>
 
@@ -27,23 +27,12 @@
         <a href="/shitpic/down/{{ shitpic.uuid }}/{{ token.uuid }}">vote down!</a>
         - 
         <br>
+        <!-- form reworking -->
         <form method="post" action=" {{ url_for('index_mod.index') }}">
         {{ form.csrf_token }}
         {{ form.upvote }}
         {{ form.downvote }}
         </form>
-
-
-
-<!-- 
-        <form method="post" action=" {{ url_for( 'index_mod.index' )   }}   " class="inline">
-            <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-        
-
-            <button type="submit" name="upvote" value="{{ shitpic.uuid }}" class="link-button">
-            vote up!
-            </button>
-        </form> -->
 
         <br>
 

@@ -9,6 +9,11 @@
 </head>
 
 <body>
+    <div id="title">
+        {% block header %}
+        {% endblock %}
+    </div>
+
     <div id="navigation">
         {% if current_user.is_authenticated %} Hi {{ current_user.username }}!{% endif %}
         <br> 
@@ -18,22 +23,30 @@
         <a href="{{ url_for('login_mod.logout') }}?next=%2F{{ request.url_rule }}">log out</a> {% else %}
         <a href="{{ url_for('login_mod.login') }}?next=%2F{{ request.url_rule }}">log in / sign up</a> {% endif %}
     </div>
-    <br>
-    <br>
     <div id="alert" style="color:red">
-        {% block alert %} {% with messages = get_flashed_messages() %} {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %} {% endwith %} {% endblock %}</div>
-    <div id="content">{% block content %}{% endblock %}</div>
+        {% block alert %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %} 
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
     <br>
     <br>
     <div id="footer">
-        {% block footer %} &copy; <a href="http://shitonmy.life">shit on my . life</a> {% endblock %}
+        {% block footer %} 
+            &copy; <a href="http://shitonmy.life">shit on my . life</a> 
+        {% endblock %}
     </div>
 </body>
-
 </html>
