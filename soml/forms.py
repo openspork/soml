@@ -11,9 +11,6 @@ class VoteForm(FlaskForm):
     upvote = SubmitField('vote up')
     downvote = SubmitField('vote down')
 
-
-
-
 # handles login
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(message = 'Username missing!')])
