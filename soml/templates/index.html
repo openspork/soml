@@ -26,7 +26,6 @@
         <form method="post" action=" {{ url_for('index_mod.index') }}">
         {{ form.csrf_token }}
         {{ form.shitpic }}
-        {{ form.shitpic.data }}
         {{ form.upvote }}
         {{ form.downvote }}
         </form>
@@ -36,58 +35,6 @@
     </li>
     {% endfor %}
 </ul>
-
-
-
-
-
-<!-- <ul>
-    {% for pic_and_form in pics_and_forms %}
-    <li>
-        <b>{{ pic_and_form[0].name }}  </b>
-        <br>
-        <i>Submitted by {{ pic_and_form[0].user.username }}</i>
-        <br>
-        Score: {{ pic_and_form[0].score }}
-
-        <img src="/shitpic/get/{{ pic_and_form[0].uuid }}" style="width:128px;" >
-        <form method="post" action=" {{ url_for('index_mod.index') }}">
-        {{ pic_and_form[1].csrf_token    }}
-        {{ pic_and_form[1].upvote     }}
-        {{ pic_and_form[1].downvote     }}
-        </form>
-
-        <br>
-
-    </li>
-    {% endfor %}
-</ul>
- -->
-
-
-
-
-<!-- 
-<ul>
-    {% for shitpic in shitpics %}
-    <li>
-        <b>{{ shitpic.name }}  </b>
-        <br>
-        <i>Submitted by {{ shitpic.user.username }}</i>
-        <br>
-        Score: {{ shitpic.score }}
-        <br>
-        <img src="/shitpic/get/{{ shitpic.uuid }}" style="width:128px;" >
-        <a href="/shitpic/up/{{ shitpic.uuid }}/{{ token.uuid }}">vote up!</a> 
-        -
-        <a href="/shitpic/down/{{ shitpic.uuid }}/{{ token.uuid }}">vote down!</a>
-        - 
-        <br>
-    </li>
-    {% endfor %}
-</ul>
-
- -->
 
 <br>
 <br>
