@@ -12,7 +12,36 @@
 
 	<h3>Popular shitpics:</h3>
 
+
 <ul>
+    {% for pic, form in pics_and_forms %}
+    <li>
+        <b>{{ pic.name }}  </b>
+        <br>
+        <i>Submitted by {{ pic.user.username }}</i>
+        <br>
+        Score: {{ pic.score }}
+
+        <img src="/shitpic/get/{{ pic.uuid }}" style="width:128px;" >
+        <form method="post" action=" {{ url_for('index_mod.index') }}">
+        {{ form.csrf_token }}
+        {{ form.shitpic }}
+        {{ form.shitpic.data }}
+        {{ form.upvote }}
+        {{ form.downvote }}
+        </form>
+
+        <br>
+
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+
+
+<!-- <ul>
     {% for pic_and_form in pics_and_forms %}
     <li>
         <b>{{ pic_and_form[0].name }}  </b>
@@ -33,7 +62,7 @@
     </li>
     {% endfor %}
 </ul>
-
+ -->
 
 
 

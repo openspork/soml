@@ -8,27 +8,42 @@ from soml.forms import VoteForm
 index_mod = Blueprint('index_mod', __name__, template_folder='templates')
 
 @index_mod.route('/', methods = ['GET', 'POST'])
-def index():
+def index(shitpic_uuid = None):
 	shitpics = ShitPic.select().order_by(ShitPic.score.desc())
-	token = Token.create(uuid = uuid4())
 
 	pics_and_forms = []
 
 	for pic in shitpics:
-		form = VoteForm()
+		voteform = VoteForm()
+		voteform.shitpic.data = pic.uuid
+
 		#tuple of pic and corresponding form
-		pics_and_forms.append( (pic, form) )
+		pics_and_forms.append( (pic, voteform) )
 
-	if form.validate_on_submit():
-		for pic_and_form in pics_and_forms:
-			if pic_and_form[1].upvote.data:
-				pic_and_form[0].score += 1
-				pic_and_form[0].save()
-			if pic_and_form[1].downvote.data:
-				pic_and_form[0].score += 1
-				pic_and_form[0].save()
+	if request.method == 'POST':
+		#print 'POST'
+		#print len(pics_and_forms)
+		for pic, form in pics_and_forms:
+			#print 'Validating input for', pic.name
+			if form.validate_on_submit():
+				#print 'validated'
+				selected_pic = request.form['shitpic']
+				#print selected_pic
+				print pic.uuid, selected_pic
+				if str(pic.uuid) == selected_pic:
+					print 'pic found!'
+					if form.upvote.data:
+						pic.score += 1
+						pic.save()
+					if form.downvote.data:
+						pic.score -= 1
+						pic.save()
 
-	return render_template('index.html', current_user = current_user, shitpics = shitpics, token = token, pics_and_forms = pics_and_forms)
+				
+			
+
+	
+	return render_template('index.html', pics_and_forms = pics_and_forms)
 
 
 

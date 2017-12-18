@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import Field, BooleanField, StringField, PasswordField, SelectField, SelectMultipleField, SubmitField, widgets
+from wtforms import Field, BooleanField, HiddenField, StringField, PasswordField, SelectField, SelectMultipleField, SubmitField, widgets
 from wtforms.compat import text_type
 from wtforms.validators import InputRequired, StopValidation, URL
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -8,6 +8,7 @@ from flask_login import current_user
 from soml.utils import validate_image_url
 
 class VoteForm(FlaskForm):
+    shitpic = HiddenField('shitpic_uuid')
     upvote = SubmitField('vote up')
     downvote = SubmitField('vote down')
 
