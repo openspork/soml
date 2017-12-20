@@ -11,21 +11,18 @@ index_mod = Blueprint('index_mod', __name__, template_folder='templates')
 def index(shitpic_uuid = None):
 	shitpics = ShitPic.select().order_by(ShitPic.score.desc())
 
-
 	pics_and_forms = []
-	pics_and_forms_dict = {}
 
 	for pic in shitpics:
 		voteform = VoteForm()
 		voteform.shitpic.data = pic.uuid
-		pics_and_forms.append( (pic, voteform) )
-		pics_and_forms_dict[pic.uuid] = voteform
+		pic_and_form = (pic, voteform)
+		pics_and_forms.append( pic_and_form )
 
 	if request.method == 'POST':
 		for pic, form in pics_and_forms:
 			if form.validate_on_submit():
 				selected_pic = request.form['shitpic']
-				print pic.uuid, selected_pic
 				if str(pic.uuid) == selected_pic:
 					if form.upvote.data:
 						pic.score += 1
