@@ -30,5 +30,6 @@ def index(shitpic_uuid = None):
 					if form.downvote.data:
 						pic.score -= 1
 						pic.save()
+		return redirect(url_for('index_mod.index'))
 
 	return render_template('index.html', pics_and_forms = pics_and_forms)
