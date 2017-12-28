@@ -15,9 +15,12 @@ def profile():
 
 	form = ProfileForm(choices = choices)
 	if form.validate_on_submit():
+		print form.delete.data
 		for shitpic_uuid in form.delete.data:
+			print 'deleting', shitpic_uuid
 			ShitPic.get(ShitPic.uuid == shitpic_uuid).delete_instance()
-			return redirect(url_for('profile_mod.profile'))
+		return redirect(url_for('profile_mod.profile'))
+
 	else:
 		for field, errors in form.errors.items():
 			for error in errors:
