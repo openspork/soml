@@ -1,6 +1,7 @@
 
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
 from soml.login_controller import login_manager
 from soml.models import User
 from soml.forms import LoginForm
@@ -17,14 +18,15 @@ def login():
 	if form.validate_on_submit():
 		if not form.new_user.data:
 			sq = User.select().where(User.username == form.username.data)
-			if sq.exists() and User.get(User.username == form.username.data).password == form.password.data:
+			#if sq.exists() and User.get(User.username == form.username.data).password == form.password.data:
+			if sq.exists() and check_password_hash(User.get(User.username == form.username.data).password, form.password.data ):
 				user = User.get(User.username == form.username.data)
 				login_user(user)
 				return redirect(get_redirect_target())
 			else:
 				flash('bad login!')
 		else:
-			User.create(username = form.username.data, password = form.password.data)
+			User.create(username = form.username.data, password = generate_password_hash(form.password.data))
 			user = User.get(User.username == form.username.data)
 			login_user(user)
 			return redirect(get_redirect_target())
