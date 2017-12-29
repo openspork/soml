@@ -25,7 +25,3 @@ class ShitPic(BaseModel):
     name = CharField()
     date = DateTimeField()
     score = IntegerField(default = 0)
-
-class Token(BaseModel):
-    uuid = UUIDField()
-    expiration = DateTimeField(null=True)
