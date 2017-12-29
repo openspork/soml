@@ -24,8 +24,10 @@ app.register_blueprint(index_mod)
 
 @app.route('/shitpic/get/<uuid>')
 def shitpic_get(uuid):
+	directory = app.config['UPLOADED_SHITPICS_DEST']
 	filename = ShitPic.get(ShitPic.uuid == uuid).filename
-	return send_from_directory(app.config['UPLOADED_SHITPICS_DEST'], filename)
+	print 'serving picture ', directory + filename
+	return send_from_directory(directory, filename)
 
 @app.route('/favicon.ico')
 def favicon():
